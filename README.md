@@ -18,4 +18,11 @@
 
 ## what I learned | 무엇을 배웠는가
 > This
-- learned 
+
+> Importance of Understanding ORM (Object Relational Mapping) with Databases
+- multiple instance of one model을 한 model의 object와 link 
+    - ex. 1 post with multiple images
+    - ex. 1 order with multiple pizzas
+- choice option in fields for models vs. creating separate model and accessing by foreign key
+    - 둘 다
+    - code로 직접 수정해야 함 vs. 
