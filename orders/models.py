@@ -1,10 +1,10 @@
 from django.db import models
 
+# Create models for menu categories
+class Order(models.Model):
+    pass
+
 # Create choices used in models
-PIZZAS = (
-    ('regular', 'Regular'),
-    ('sicilian', 'Sicilian'),
-)
 SIZES = (
     ('S', 'Small'),
     ('L', 'Large'),
@@ -12,6 +12,7 @@ SIZES = (
 
 # Create models for menu categories
 class DinnerPlatter(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name=)
     name = models.CharField(max_length=20)
     size = models.CharField(max_length=1, choices=SIZES)
     price = models.FloatField()
@@ -25,6 +26,11 @@ class Pasta(models.Model):
 
     def __str__(self):
         return f"{self.name}"
+
+class Pizza(models.Model):
+    name = models.CharField(max_length=10)
+    size = models.CharField(max_length=1, choices=SIZES)
+    add
 
 class PizzaTopping(models.Model):
     name = models.CharField(max_length=30)

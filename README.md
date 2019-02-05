@@ -20,9 +20,16 @@
 > This
 
 > Importance of Understanding ORM (Object Relational Mapping) with Databases
+- 클래스 정의와 객체 구분하기
+    - ex. order class: 객체 order1, order2 만들 수 있음
+    - class 정의에 foreignkey field가 있으면 이거는 그 class의 __object__와 연결이 되는 것이다! (not the actual class)
+- 모델/table 연결시키기
+    - inbetween table 생각하며 어떻게 연결시킬지 생각하기
 - multiple instance of one model을 한 model의 object와 link 
     - ex. 1 post with multiple images
     - ex. 1 order with multiple pizzas
-- choice option in fields for models vs. creating separate model and accessing by foreign key
-    - 둘 다
-    - code로 직접 수정해야 함 vs. 
+- cf) choice option in fields for models vs. creating separate model and accessing by foreign key
+    - 둘 다 foreign key로 접근하는 
+    - ex. flight에 origin으로 airport 객체 지정가능 (flight 1 = 홍콩에서 출발)
+    - code로 직접 수정해야 함 vs. admin에서 수정 가능 (GUI)
+    - 결국, separate model 방식이 더 나음.
