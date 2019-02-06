@@ -25,7 +25,9 @@
     - class 정의에 foreignkey field가 있으면 이거는 그 class의 __object__와 연결이 되는 것이다! (not the actual class)
 - 모델/table 연결시키기
     - inbetween table 생각하며 어떻게 연결시킬지 생각하기
-- multiple instance of one model을 한 model의 object와 link 
+- multiple instance of one model을 한 model의 object와 link.
+    - 방법: 多개인 모델 안에 foreign key 정의하여 다른 모델과 연결 (그럼 하나인 모델이 related_name으로 정의되는 reverse accessor로 다른 것을 모두 접근할 수가 있다!)
+    - 그림으로 나타내기!! 하나가 여러개와 연결되는 모습
     - ex. 1 post with multiple images
     - ex. 1 order with multiple pizzas
 - cf) choice option in fields for models vs. creating separate model and accessing by foreign key

@@ -4,6 +4,9 @@ from django.db import models
 class Order(models.Model):
     pass
 
+    def __str__(self):
+        return f"{self.platters.all()}, {self.pastas.all()}, {self.salads.all()}"
+
 # Create choices used in models
 SIZES = (
     ('S', 'Small'),
@@ -12,7 +15,7 @@ SIZES = (
 
 # Create models for menu categories
 class DinnerPlatter(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name=)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="platters")
     name = models.CharField(max_length=20)
     size = models.CharField(max_length=1, choices=SIZES)
     price = models.FloatField()
@@ -21,6 +24,7 @@ class DinnerPlatter(models.Model):
         return f"{self.name} ({self.size})"
 
 class Pasta(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="pastas")
     name = models.CharField(max_length=30)
     price = models.FloatField()
 
@@ -30,7 +34,7 @@ class Pasta(models.Model):
 class Pizza(models.Model):
     name = models.CharField(max_length=10)
     size = models.CharField(max_length=1, choices=SIZES)
-    add
+    topping = models.IntegerField()
 
 class PizzaTopping(models.Model):
     name = models.CharField(max_length=30)
@@ -39,6 +43,7 @@ class PizzaTopping(models.Model):
         return f"{self.name}"
 
 class Salad(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="salads")
     name = models.CharField(max_length=20)
     price = models.FloatField()
 
