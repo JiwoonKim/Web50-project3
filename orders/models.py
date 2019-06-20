@@ -1,58 +1,67 @@
 from django.db import models
 
 # Create models for menu categories
-class Order(models.Model):
-    pass
-
-    def __str__(self):
-        return f"{self.platters.all()}, {self.pastas.all()}, {self.salads.all()}"
-
-# Create choices used in models
 SIZES = (
     ('S', 'Small'),
     ('L', 'Large'),
 )
 
-# Create models for menu categories
-class DinnerPlatter(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="platters")
-    name = models.CharField(max_length=20)
-    size = models.CharField(max_length=1, choices=SIZES)
-    price = models.FloatField()
+PIZZA_TOPPINGS_TYPES = (
+    ('Cheese', 'Cheese'),
+    ('1 Topping', '1 topping'),
+    ('2 Toppings', '2 Toppings'),
+    ('3 Toppings', '3 Toppings'),
+    ('Special', 'Special'),
+)
+
+class Topping(models.Model):
+    name = models.CharField(max_length=30)
 
     def __str__(self):
-        return f"{self.name} ({self.size})"
+        return f"{self.name}"
+    
+class RegularPizza(models.Model):
+    topping_type = models.CharField(max_length=10, choices=PIZZA_TOPPINGS_TYPES)
+    size = models.CharField(max_length=1, choices=SIZES)
+    price = models.FloatField(default=0)
+
+    def __str__(self):
+        return f"{self.topping_type} ({self.size}) - ${self.price}"
+
+class SicilianPizza(models.Model):
+    topping_type = models.CharField(max_length=10, choices=PIZZA_TOPPINGS_TYPES)
+    size = models.CharField(max_length=1, choices=SIZES)
+    price = models.FloatField(default=0)
+
+    def __str__(self):
+        return f"{self.topping_type} ({self.size}) - ${self.price}"
+    
+class Sub(models.Model):
+    sub_type = models.CharField(max_length=30)
+    size = models.CharField(max_length=1, choices=SIZES)
+    price = models.FloatField(default=0)
+
+    def __str__(self):
+        return f"{self.sub_type} ({self.size}) - ${self.price}"
 
 class Pasta(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="pastas")
-    name = models.CharField(max_length=30)
-    price = models.FloatField()
+    pasta_type = models.CharField(max_length=30)
+    price = models.FloatField(default=0)
 
     def __str__(self):
-        return f"{self.name}"
-
-class Pizza(models.Model):
-    name = models.CharField(max_length=10)
-    size = models.CharField(max_length=1, choices=SIZES)
-    topping = models.IntegerField()
-
-class PizzaTopping(models.Model):
-    name = models.CharField(max_length=30)
-
-    def __str__(self):
-        return f"{self.name}"
-
+        return f"{self.pasta_type} - ${self.price}"
+    
 class Salad(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name="salads")
-    name = models.CharField(max_length=20)
-    price = models.FloatField()
+    salad_type = models.CharField(max_length=20)
+    price = models.FloatField(default=0)
 
     def __str__(self):
-        return f"{self.name}"
-
-class SubTopping(models.Model):
-    name = models.CharField(max_length=30)
-    price = models.FloatField()
+        return f"{self.salad_type} - ${self.price}"
+    
+class DinnerPlatter(models.Model):
+    platter_type = models.CharField(max_length=20)
+    size = models.CharField(max_length=1, choices=SIZES)
+    price = models.FloatField(default=0)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.platter_type} ({self.size}) - ${self.price}"
