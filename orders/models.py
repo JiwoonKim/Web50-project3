@@ -36,9 +36,17 @@ class SicilianPizza(models.Model):
     def __str__(self):
         return f"{self.topping_type} ({self.size}) - ${self.price}"
     
+class SubExtra(models.Model):
+    extra_type = models.CharField(max_length=20)
+    price = models.FloatField(default=0)
+
+    def __str__(self):
+        return f"{self.extra_type} - ${self.price}"
+
 class Sub(models.Model):
     sub_type = models.CharField(max_length=30)
     size = models.CharField(max_length=1, choices=SIZES)
+    possible_extras = models.ManyToManyField(SubExtra, related_name="available_on")
     price = models.FloatField(default=0)
 
     def __str__(self):
